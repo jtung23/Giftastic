@@ -1,26 +1,35 @@
 $(document).ready(function() {
 
-var topics = ["brisket", "dota", "warriors", "manatee"]
+var topics = ["brisket", "dota2", "warriors", "manatee"]
 
 
 function displayPics() {
 var search = $(this).text();
-console.log(search)
-var rating = "g"
+console.log(search) 
 
 var queryURL = "http://api.giphy.com/v1/gifs/search?q="+ search +
 "&api_key=944143a3d51640208992a3edc40948fa&lang=en&limit=10"
-+ "&rating=" + rating;
-
+// + "&rating=" + rating;
+$('#topic-pics').empty();
 		$.ajax({
 		url: queryURL,
 		method: "GET"
 		}).done(function(response) {
 			console.log(response);
-			var gifURL = response.data[0].bitly_gif_url
-			console.log(gifURL)
-			var gifShow = $('<img>').attr("src", gifURL)
-			$('#topic-pics').html(gifShow)
+			var responseArray = response.data
+			// var gifURL = response.data[0].images.downsized_medium.url;
+			// var gifShow = $('<img>').attr("src", gifURL)
+			// $('#topic-pics').append(gifShow)
+
+			for (var i = 0; i < responseArray.length; i++) {
+				var rating = responseArray[i].rating;
+				console.log(rating);
+				var ratingHTML = $('<p>').text("Rating: " + rating)
+				var stillURL = responseArray[i].images.fixed_height_still.url
+				var gifShow = $('<img>').attr("src", stillURL)
+				$('#topic-pics').append(gifShow)
+				gifShow.first().after(ratingHTML)
+			}
 		})
 }
 
