@@ -4,11 +4,12 @@ var topics = ["brisket", "dota2", "warriors", "manatee"];
 var offset = Math.floor(Math.random() * 20);
 console.log(offset);
 
+// /////////////////////////////////////////////////////////////////////////////
 
 function displayPics() {
 var search = $(this).text();
 console.log(search); 
-
+	
 var queryURL = "http://api.giphy.com/v1/gifs/search?q="+ search +
 "&api_key=944143a3d51640208992a3edc40948fa&lang=en&limit=10&offset=" + offset;
 // + "&rating=" + rating;
@@ -19,8 +20,6 @@ $('#topic-pics').empty();
 		}).done(function(response) {
 			console.log(response);
 			var responseArray = response.data;
-
-
 
 			for (var i = 0; i < responseArray.length; i++) {
 				var rating = responseArray[i].rating;
@@ -36,11 +35,11 @@ $('#topic-pics').empty();
 				gifShow.first().after(ratingHTML);
 
 			}
-		})
-}
 
-function gifAnimate() {
-    var state = $(this).data('state');
+// ///////////////////////////////////////////////////////////////////////////////////
+
+			function gifAnimate() {
+    var state = $(this).attr('data-state');
     var dataAnimate = $(this).data('animate')
     var dataStill = $(this).data('still')
     console.log(state)
@@ -49,13 +48,24 @@ function gifAnimate() {
     	$(this).attr('src', dataAnimate);
     	$(this).attr("data-state", "animate")
     	console.log('still if statement')
+    	console.log($(this).attr("data-state"))
+    	return($(this).attr("data-state"))
     }
-    else {
+    else if (state !== "still") {
     	console.log('animated but wont click')
     	$(this).attr('src', dataStill);
     	$(this).attr("data-state", "still")
     }
 	}
+		$(document).on('click', '.gif', gifAnimate);
+                     
+		})
+
+}
+
+// ///////////////////////////////////////////////////////////////////////////////////
+
+
 
 function createButtons() {
 	$('#btn-area').empty()
@@ -80,10 +90,7 @@ $('#search-btn').click(function(event) {
 
 	$(document).on("click", ".topic-btn", displayPics);	
 
-	$(document).on('click', '.gif', gifAnimate);
-
 	createButtons();
 
 })
-
 

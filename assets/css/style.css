@@ -8,5 +8,14 @@ img {
 }
 
 .topic-btn {
-	margin: 10px;
+	margin: 7px;
+}
+
+body {
+	background-image: url("../images/darkness.png");
+}
+
+#topic-pics p {
+	position: relative;
+	left: 20px;
 }
