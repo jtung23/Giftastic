@@ -1,7 +1,7 @@
 $(document).ready(function() {
 // when click on button next to image,can save url in box on right to use later.
 var topics = ["brisket", "dota2", "warriors", "manatee"];
-var offset = Math.floor(Math.random() * 20);
+var offset = Math.floor(Math.random() * 25);
 console.log(offset);
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -33,34 +33,27 @@ $('#topic-pics').empty();
 				gifShow.addClass("gif");
 				$('#topic-pics').append(gifShow);
 				gifShow.first().after(ratingHTML);
-
 			}
 
-// ///////////////////////////////////////////////////////////////////////////////////
+			$('.gif').on('click', function() {
+				var state = $(this).attr('data-state');
+		    	var dataAnimate = $(this).data('animate')
+		    	var dataStill = $(this).data('still')
+		    	console.log(state)
 
-			function gifAnimate() {
-    var state = $(this).attr('data-state');
-    var dataAnimate = $(this).data('animate')
-    var dataStill = $(this).data('still')
-    console.log(state)
-
-    if (state = "still") {
-    	$(this).attr('src', dataAnimate);
-    	$(this).attr("data-state", "animate")
-    	console.log('still if statement')
-    	console.log($(this).attr("data-state"))
-    	return($(this).attr("data-state"))
-    }
-    else if (state !== "still") {
-    	console.log('animated but wont click')
-    	$(this).attr('src', dataStill);
-    	$(this).attr("data-state", "still")
-    }
-	}
-		$(document).on('click', '.gif', gifAnimate);
-                     
+		    if (state === "still") {
+		    	$(this).attr('src', dataAnimate);
+		    	$(this).attr("data-state", "animate")
+		    	console.log('still if statement')
+		    	console.log($(this).attr("data-state"))
+		    }
+		    else {
+		    	console.log('animated but wont click')
+		    	$(this).attr('src', dataStill);
+		    	$(this).attr("data-state", "still")
+		    }
+			})                     
 		})
-
 }
 
 // ///////////////////////////////////////////////////////////////////////////////////
