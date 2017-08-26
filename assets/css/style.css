@@ -1,6 +1,8 @@
 img {
 	display: inline-block;
 	margin: 20px;
+	border: solid;
+	border-color: #998a74;
 }
 
 #btn-area {
@@ -9,6 +11,9 @@ img {
 
 .topic-btn {
 	margin: 7px;
+	margin-top: 76px;
+	position: relative;
+	left:20px;
 }
 
 body {
@@ -18,4 +23,11 @@ body {
 #topic-pics p {
 	position: relative;
 	left: 20px;
+	color: #b5a387;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#panel-info {
+	margin-top: 20px;
 }

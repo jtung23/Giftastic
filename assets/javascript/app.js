@@ -2,16 +2,16 @@ $(document).ready(function() {
 // when click on button next to image,can save url in box on right to use later.
 var topics = ["brisket", "dota2", "warriors", "manatee"];
 var offset = Math.floor(Math.random() * 25);
-console.log(offset);
+
 
 // /////////////////////////////////////////////////////////////////////////////
 
 function displayPics() {
 var search = $(this).text();
-console.log(search); 
+var limit = $('#num_rec option:selected').text() 
 	
 var queryURL = "http://api.giphy.com/v1/gifs/search?q="+ search +
-"&api_key=944143a3d51640208992a3edc40948fa&lang=en&limit=10&offset=" + offset;
+"&api_key=944143a3d51640208992a3edc40948fa&lang=en&limit=" + limit + "&offset=" + offset;
 // + "&rating=" + rating;
 $('#topic-pics').empty();
 		$.ajax({
@@ -27,12 +27,13 @@ $('#topic-pics').empty();
 				var ratingHTML = $('<p>').text("Rating: " + rating);
 				var stillURL = responseArray[i].images.fixed_height_still.url;
 				var gifShow = $('<img>').attr("src", stillURL);
-				gifShow.attr('data-still', responseArray[i].images.fixed_height_still.url);
+				gifShow.attr('data-still', stillURL);
 				gifShow.attr('data-animate', responseArray[i].images.fixed_height.url);
 				gifShow.attr('data-state', 'still');
 				gifShow.addClass("gif");
 				$('#topic-pics').append(gifShow);
 				gifShow.first().after(ratingHTML);
+				ratingHTML.append('<button id="save-btn">Save');
 			}
 
 			$('.gif').on('click', function() {
@@ -52,7 +53,16 @@ $('#topic-pics').empty();
 		    	$(this).attr('src', dataStill);
 		    	$(this).attr("data-state", "still")
 		    }
-			})                     
+			})  
+
+			$('#save-btn').on('click', function() {
+				console.log('clicked');
+				var prevImg = $('#save-btn').prev('div');
+				console.log(prevImg);
+				// on click
+				// save to saved-gifs html
+				// save saved gif src links as object to database
+			})                   
 		})
 }
 
@@ -74,8 +84,7 @@ function createButtons() {
 $('#search-btn').click(function(event) {
 	event.preventDefault();
 	var searchText = $('#search-box').val();
-	console.log(searchText);
-	console.log(typeof searchText);
+	console.log(typeof $('#num-rec').text());
 	topics.push(searchText);
 	createButtons();
 })
