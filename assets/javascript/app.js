@@ -10,7 +10,7 @@ function displayPics() {
 var search = $(this).text();
 var limit = $('#num_rec option:selected').text() 
 	
-var queryURL = "http://api.giphy.com/v1/gifs/search?q="+ search +
+var queryURL = "https://api.giphy.com/v1/gifs/search?q="+ search +
 "&api_key=944143a3d51640208992a3edc40948fa&lang=en&limit=" + limit + "&offset=" + offset;
 // + "&rating=" + rating;
 $('#topic-pics').empty();
